@@ -4,8 +4,9 @@ import os
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException, Request
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, HTMLResponse
 from structlog.contextvars import bind_contextvars
+from starlette.concurrency import run_in_threadpool
 
 from .agent import LabAgent
 from .incidents import disable, enable, status
@@ -14,7 +15,7 @@ from .metrics import record_error, snapshot
 from .middleware import CorrelationIdMiddleware
 from .pii import hash_user_id, summarize_text
 from .schemas import ChatRequest, ChatResponse
-from .tracing import tracing_enabled
+from .tracing import tracing_enabled, get_langfuse_client
 
 configure_logging()
 log = get_logger()
@@ -30,6 +31,8 @@ async def lifespan(_: FastAPI):
         payload={"tracing_enabled": tracing_enabled()},
     )
     yield
+    if tracing_enabled():
+        get_langfuse_client().flush()
 
 
 app = FastAPI(title="Day 13 Monitoring & LLMOps Lab", lifespan=lifespan)
@@ -46,10 +49,16 @@ async def metrics() -> dict:
     return snapshot()
 
 
+@app.get("/dashboard", response_class=HTMLResponse)
+def dashboard():
+    from .dashboard import render_dashboard
+    return render_dashboard()
+
+
 @app.post("/chat", response_model=ChatResponse)
 async def chat(request: Request, body: ChatRequest) -> ChatResponse:
-    # TODO: Enrich logs with request context (user_id_hash, session_id, feature, model, env)
-    # bind_contextvars(...)
+    bind_contextvars(user_id_hash=hash_user_id(body.user_id), session_id=body.session_id,
+                     feature=body.feature, model=agent.model, env=os.getenv("APP_ENV", "dev"))
     
     log.info(
         "request_received",
@@ -57,7 +66,7 @@ async def chat(request: Request, body: ChatRequest) -> ChatResponse:
         payload={"message_preview": summarize_text(body.message)},
     )
     try:
-        result = agent.run(
+        result = await run_in_threadpool(agent.run,
             user_id=body.user_id,
             feature=body.feature,
             session_id=body.session_id,

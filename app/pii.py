@@ -5,10 +5,9 @@ import re
 
 PII_PATTERNS: dict[str, str] = {
     "email": r"[\w\.-]+@[\w\.-]+\.\w+",
-    "phone_vn": r"(?<!\d)(?:\+84|0)(?:[ .-]?\d){9}(?!\d)",
-    "cccd": r"\b\d{12}\b",
     "credit_card": r"\b\d{4}[- ]?\d{4}[- ]?\d{4}[- ]?\d{4}\b",
-    # TODO: Add more patterns (e.g., Passport, Vietnamese address keywords)
+    "cccd": r"\b\d{12}\b",
+    "phone_vn": r"(?<!\d)(?:\+84|0)(?:[ .-]?\d){9}(?!\d)",
 }
 
 
@@ -26,3 +25,14 @@ def summarize_text(text: str, max_len: int = 80) -> str:
 
 def hash_user_id(user_id: str) -> str:
     return hashlib.sha256(user_id.encode("utf-8")).hexdigest()[:12]
+
+
+def scrub_value(value):
+    """Scrub string leaves, including nested exception/trace metadata."""
+    if isinstance(value, str):
+        return scrub_text(value)
+    if isinstance(value, dict):
+        return {scrub_text(str(k)): scrub_value(v) for k, v in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [scrub_value(v) for v in value]
+    return value

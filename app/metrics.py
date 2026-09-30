@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from collections import Counter
 from statistics import mean
+from math import ceil
 
 REQUEST_LATENCIES: list[int] = []
 REQUEST_TTFT: list[int] = []
@@ -41,14 +42,15 @@ def percentile(values: list[int], p: int) -> float:
     if not values:
         return 0.0
     items = sorted(values)
-    idx = max(0, min(len(items) - 1, round((p / 100) * len(items) + 0.5) - 1))
+    idx = max(0, min(len(items) - 1, ceil((p / 100) * len(items)) - 1))
     return float(items[idx])
 
 
 
 def snapshot() -> dict:
     return {
-        "traffic": TRAFFIC,
+        "traffic": TRAFFIC + sum(ERRORS.values()),
+        "error_rate_pct": 100 * sum(ERRORS.values()) / (TRAFFIC + sum(ERRORS.values())) if TRAFFIC + sum(ERRORS.values()) else 0.0,
         "latency_p50": percentile(REQUEST_LATENCIES, 50),
         "latency_p95": percentile(REQUEST_LATENCIES, 95),
         "latency_p99": percentile(REQUEST_LATENCIES, 99),

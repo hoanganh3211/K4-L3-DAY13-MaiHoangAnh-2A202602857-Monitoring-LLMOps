@@ -7,7 +7,7 @@ primary_slo:
     total_event: 'event == "request_received"'
   target_percent: 99.5
   error_budget_percent: 0.5
-  note: Học viên phải giải thích hoặc điều chỉnh ngưỡng bằng baseline của mình. Ví dụ nếu có 10,000 request trong cửa sổ 28 ngày, error budget 0.5% nghĩa là tối đa 50 request được phép không đạt SLO.
+  note: Mục tiêu trải nghiệm lab là trả lời thành công trong 3 giây. Trong 28 ngày, budget = 0.005 * tổng request; consumed = total - good (lỗi hoặc chậm, không cộng trùng). 10,000 request cho phép 50 bad requests. Chỉ chốt cửa sổ sau khi request đang chạy kết thúc. Baseline local trong REPORT.md chưa đại diện tải production.
 guardrails:
   error_rate_pct_max: 2
   daily_cost_usd_max: 2.5

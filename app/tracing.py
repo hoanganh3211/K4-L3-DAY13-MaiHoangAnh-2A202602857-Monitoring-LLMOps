@@ -3,11 +3,16 @@ from __future__ import annotations
 import os
 from contextlib import contextmanager
 from typing import Any
+from .pii import scrub_value
 
 try:
-    from langfuse import get_client, observe, propagate_attributes
+    from langfuse import Langfuse, get_client, observe, propagate_attributes
 
     LANGFUSE_SDK_AVAILABLE = True
+    # Configure the shared SDK client before decorators create observations.
+    # This also sanitizes SDK-generated error status messages.
+    if os.getenv("LANGFUSE_PUBLIC_KEY") and os.getenv("LANGFUSE_SECRET_KEY"):
+        _configured_client = Langfuse(mask=lambda *, data, **kwargs: scrub_value(data))
 except ImportError:  # pragma: no cover - chỉ dùng khi chưa cài requirements
     LANGFUSE_SDK_AVAILABLE = False
 

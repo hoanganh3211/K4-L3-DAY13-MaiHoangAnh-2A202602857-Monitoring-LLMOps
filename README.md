@@ -265,3 +265,27 @@ Không push bài làm trực tiếp lên repo đề bài và không dùng chung 
 - [RUBRIC.md](docs/RUBRIC.md), [RULES.md](docs/RULES.md), [SUBMISSION.md](docs/SUBMISSION.md): cách chấm, quy định và cách nộp.
 - [grading-evidence.md](docs/grading-evidence.md): checklist nhanh các ảnh/output cần thu thập.
 - [REPORT.md](submission/REPORT.md): báo cáo cá nhân duy nhất cần hoàn thiện.
+
+## Bản triển khai local của Mai Hoàng Anh
+
+Môi trường kiểm thử: Python 3.12. Sau khi cài dependency và chạy API như trên,
+mở http://127.0.0.1:8000/dashboard để xem sáu panel từ log thật (60 phút, refresh 30 giây).
+
+```powershell
+.\.venv\Scripts\python.exe -m uvicorn app.main:app --env-file .env
+# Terminal thứ hai:
+.\.venv\Scripts\python.exe scripts/collect_practice.py
+.\.venv\Scripts\python.exe -m pytest -q
+.\.venv\Scripts\python.exe scripts/validate_logs.py
+.\.venv\Scripts\python.exe scripts/validate_dashboard.py
+```
+
+`collect_practice.py` chạy 5 phase trên cùng sample queries, concurrency 5: baseline,
+rag_slow, tool_fail, cost_spike, recovery. Script lưu log/metrics/HTML trong
+`submission/evidence/`; lưu bản cũ trước khi chạy lại. Chỉ chạy với API lab local,
+không dùng trên production. Script từ chối nếu có incident đang bật và tắt scenario
+của nó trong finally. Script không đọc/tạo/chỉnh challenge chính thức.
+
+Report hiện là bản nháp kỹ thuật: [submission/REPORT.md](submission/REPORT.md).
+Langfuse project `day13-k4-l3b-2A202602857`, evidence prompt/trace và challenge
+chính thức còn cần bổ sung; không có key trả phí LLM nào cần thiết.

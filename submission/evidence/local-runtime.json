@@ -1,0 +1,298 @@
+{
+  "health": {
+    "ok": true,
+    "tracing_enabled": false,
+    "incidents": {
+      "rag_slow": false,
+      "tool_fail": false,
+      "cost_spike": false
+    }
+  },
+  "runs": [
+    {
+      "phase": "baseline",
+      "start": "2026-09-30T03:19:32.999133+00:00",
+      "end": "2026-09-30T03:19:40.525069+00:00",
+      "status_codes": [
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "correlation_ids": [
+        "req-01168bda",
+        "req-08e75b5c",
+        "req-5a14ba41",
+        "req-6488bbcb",
+        "req-7571dd49",
+        "req-838db0f1",
+        "req-83dba447",
+        "req-9f16c9a5",
+        "req-c351eb74",
+        "req-dcdfafed"
+      ],
+      "metrics": {
+        "latency": {
+          "P50": 156.0,
+          "P95": 176.0,
+          "P99": 176.0,
+          "TTFT P95": 50.0
+        },
+        "traffic": {
+          "2026-09-30T03:19": 10
+        },
+        "errors": {
+          "Error rate": 0.0,
+          "Retrieval success": 100.0
+        },
+        "cost": {
+          "2026-09-30T03:19": 0.020409000000000004
+        },
+        "tokens": {
+          "tokens_in": 338,
+          "tokens_out": 1293
+        },
+        "quality": {
+          "Mean": 0.88
+        },
+        "count": 10,
+        "total_cost": 0.020409000000000004,
+        "error_breakdown": {}
+      }
+    },
+    {
+      "phase": "rag_slow",
+      "start": "2026-09-30T03:19:40.526672+00:00",
+      "end": "2026-09-30T03:19:45.970798+00:00",
+      "status_codes": [
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "correlation_ids": [
+        "req-059e56cc",
+        "req-0947ae3d",
+        "req-2058f4cd",
+        "req-253a3655",
+        "req-434987c0",
+        "req-58302204",
+        "req-5a108677",
+        "req-64556b2c",
+        "req-abf229f2",
+        "req-e21347a6"
+      ],
+      "metrics": {
+        "latency": {
+          "P50": 2657.0,
+          "P95": 2676.0,
+          "P99": 2676.0,
+          "TTFT P95": 59.0
+        },
+        "traffic": {
+          "2026-09-30T03:19": 10
+        },
+        "errors": {
+          "Error rate": 0.0,
+          "Retrieval success": 100.0
+        },
+        "cost": {
+          "2026-09-30T03:19": 0.020679
+        },
+        "tokens": {
+          "tokens_in": 338,
+          "tokens_out": 1311
+        },
+        "quality": {
+          "Mean": 0.88
+        },
+        "count": 10,
+        "total_cost": 0.020679,
+        "error_breakdown": {}
+      }
+    },
+    {
+      "phase": "tool_fail",
+      "start": "2026-09-30T03:19:45.974394+00:00",
+      "end": "2026-09-30T03:19:46.129599+00:00",
+      "status_codes": [
+        500,
+        500,
+        500,
+        500,
+        500,
+        500,
+        500,
+        500,
+        500,
+        500
+      ],
+      "correlation_ids": [
+        "req-1e251f15",
+        "req-217a2308",
+        "req-3e696622",
+        "req-49add5ef",
+        "req-49c704e7",
+        "req-63c06639",
+        "req-8cec84c8",
+        "req-9107a697",
+        "req-a3089ef3",
+        "req-ce5080ad"
+      ],
+      "metrics": {
+        "latency": {
+          "P50": null,
+          "P95": null,
+          "P99": null,
+          "TTFT P95": null
+        },
+        "traffic": {
+          "2026-09-30T03:19": 10
+        },
+        "errors": {
+          "Error rate": 100.0,
+          "Retrieval success": 0.0
+        },
+        "cost": {},
+        "tokens": {
+          "tokens_in": 0,
+          "tokens_out": 0
+        },
+        "quality": {
+          "Mean": null
+        },
+        "count": 10,
+        "total_cost": 0,
+        "error_breakdown": {
+          "RuntimeError": 10
+        }
+      }
+    },
+    {
+      "phase": "cost_spike",
+      "start": "2026-09-30T03:19:46.131085+00:00",
+      "end": "2026-09-30T03:19:46.583879+00:00",
+      "status_codes": [
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "correlation_ids": [
+        "req-15d0eae4",
+        "req-164e7c86",
+        "req-30b63907",
+        "req-3f7417b3",
+        "req-5f6ce18b",
+        "req-6b35934c",
+        "req-c79085ac",
+        "req-ca3d899f",
+        "req-d20cecea",
+        "req-de662af5"
+      ],
+      "metrics": {
+        "latency": {
+          "P50": 155.0,
+          "P95": 162.0,
+          "P99": 162.0,
+          "TTFT P95": 56.0
+        },
+        "traffic": {
+          "2026-09-30T03:19": 10
+        },
+        "errors": {
+          "Error rate": 0.0,
+          "Retrieval success": 100.0
+        },
+        "cost": {
+          "2026-09-30T03:19": 0.07397399999999998
+        },
+        "tokens": {
+          "tokens_in": 338,
+          "tokens_out": 4864
+        },
+        "quality": {
+          "Mean": 0.88
+        },
+        "count": 10,
+        "total_cost": 0.07397399999999998,
+        "error_breakdown": {}
+      }
+    },
+    {
+      "phase": "recovery",
+      "start": "2026-09-30T03:19:46.585978+00:00",
+      "end": "2026-09-30T03:19:47.006637+00:00",
+      "status_codes": [
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200,
+        200
+      ],
+      "correlation_ids": [
+        "req-0d785c8d",
+        "req-259ed6d3",
+        "req-39072449",
+        "req-88c21af9",
+        "req-9416d455",
+        "req-a1fb3a2c",
+        "req-b297945a",
+        "req-b465f08f",
+        "req-e04717f4",
+        "req-e1701df5"
+      ],
+      "metrics": {
+        "latency": {
+          "P50": 155.0,
+          "P95": 159.0,
+          "P99": 159.0,
+          "TTFT P95": 53.0
+        },
+        "traffic": {
+          "2026-09-30T03:19": 10
+        },
+        "errors": {
+          "Error rate": 0.0,
+          "Retrieval success": 100.0
+        },
+        "cost": {
+          "2026-09-30T03:19": 0.019673999999999997
+        },
+        "tokens": {
+          "tokens_in": 338,
+          "tokens_out": 1244
+        },
+        "quality": {
+          "Mean": 0.88
+        },
+        "count": 10,
+        "total_cost": 0.019673999999999997,
+        "error_breakdown": {}
+      }
+    }
+  ]
+}

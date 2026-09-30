@@ -1,0 +1,43 @@
+Source: data/logs.jsonl
+Correlation ID: req-948f4dce
+Timestamps: UTC (Vietnam = UTC+7)
+
+{
+  "service": "api",
+  "payload": {
+    "message_preview": "Which signal should be checked after latency increases?"
+  },
+  "event": "request_received",
+  "user_id_hash": "c3a24a72d92a",
+  "env": "dev",
+  "feature": "monitoring",
+  "correlation_id": "req-948f4dce",
+  "session_id": "k4-l3b-challenge-s04",
+  "model": "claude-sonnet-4-5",
+  "level": "info",
+  "ts": "2026-09-30T05:24:18.386348Z"
+}
+
+{
+  "service": "api",
+  "latency_ms": 2657,
+  "ttft_ms": 50,
+  "tokens_in": 47,
+  "tokens_out": 122,
+  "cost_usd": 0.001971,
+  "quality_score": 0.9,
+  "tool_name": "retrieval",
+  "tool_success": true,
+  "payload": {
+    "answer_preview": "Starter answer. You should improve this output logic and add better quality chec..."
+  },
+  "event": "response_sent",
+  "user_id_hash": "c3a24a72d92a",
+  "env": "dev",
+  "feature": "monitoring",
+  "correlation_id": "req-948f4dce",
+  "session_id": "k4-l3b-challenge-s04",
+  "model": "claude-sonnet-4-5",
+  "level": "info",
+  "ts": "2026-09-30T05:24:21.051195Z"
+}
